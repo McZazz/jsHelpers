@@ -1,5 +1,9 @@
 // created by McZazz, found at https://github.com/McZazz/cssRangeMapper
-
+/*
+Author:   Kevin Price
+Date:     October 23 2021
+Filename: jsHelpers.js
+*/
 /*
 * @targetRangeMax: number, maximum of target range of our css target property
 * @targetRangeMin: number, minimum of target range of our css target property
@@ -125,37 +129,42 @@ class RangeMapper {
         let invert = this.invert;
 
         // console.log('chosen range ' + mediaQueryBot + ' ' + mediaQueryTop)
+        this.runRangeMap(sourceType, targetUnits, mediaQueryBot, mediaQueryTop, targetRangeMax, targetRangeMin, targetParams, targetId, targetElse, invert);
 
         window.addEventListener('resize', function() {
-            console.log('currently this wide: ' + window.innerWidth)
+            // console.log('currently this wide: ' + window.innerWidth)
             // only running for window.innerWIdth source for now, later on can add others
             if (sourceType === 'windowInnerWidth') {
-                let sourceCurrValue = window.innerWidth;
-                if (sourceCurrValue <= mediaQueryTop && sourceCurrValue >= mediaQueryBot) {
-                    // math for this was found at stackexchange at:
-                    // https://gamedev.stackexchange.com/questions/33441/how-to-convert-a-number-from-one-min-max-set-to-another-min-max-set
-                    // currentTarget_margin = (((currScreenWidth - minScreenWidth) / (maxScreenWidth - minScreenWidth)) * (targetMax - targetMin)) + targetMin
-                    let finalNum = (((sourceCurrValue - mediaQueryBot) / (mediaQueryTop - mediaQueryBot)) * (targetRangeMax - targetRangeMin)) + targetRangeMin
-                    if (invert === true) {
-                        finalNum = targetRangeMax - finalNum;
-                    }
-                    // console.log('magic num: ' + finalNum);
-                    // clean it up and add the units
-                    finalNum = (Math.floor(finalNum * 10) / 10).toString() + targetUnits;
-                    // console.log('curr: ' + sourceCurrValue + ', finalnum: ' + finalNum)
-                    // update the chosen element(s) css properties
-                    for (let i = 0; i < targetParams.length; i++) {
-                        document.getElementById(targetId).style[targetParams[i]] = finalNum;
-                    }
-                    console.log('final num: '+ finalNum)
-                    // this.target.style[this.targetParams] = finalNum;
-                } else {
-                    for (let i = 0; i < targetParams.length; i++) {
-                        document.getElementById(targetId).style[targetParams[i]] = targetElse.toString() + targetUnits;
-                    }
-                }
+                RangeMapper.prototype.runRangeMap(sourceType, targetUnits, mediaQueryBot, mediaQueryTop, targetRangeMax, targetRangeMin, targetParams, targetId, targetElse, invert);
             }
         });
+    }
+
+    runRangeMap(sourceType, targetUnits, mediaQueryBot, mediaQueryTop, targetRangeMax, targetRangeMin, targetParams, targetId, targetElse, invert) {
+        let sourceCurrValue = window.innerWidth;
+        if (sourceCurrValue <= mediaQueryTop && sourceCurrValue >= mediaQueryBot) {
+            // math for this was found at stackexchange at:
+            // https://gamedev.stackexchange.com/questions/33441/how-to-convert-a-number-from-one-min-max-set-to-another-min-max-set
+            // currentTarget_margin = (((currScreenWidth - minScreenWidth) / (maxScreenWidth - minScreenWidth)) * (targetMax - targetMin)) + targetMin
+            let finalNum = (((sourceCurrValue - mediaQueryBot) / (mediaQueryTop - mediaQueryBot)) * (targetRangeMax - targetRangeMin)) + targetRangeMin
+            if (invert === true) {
+                finalNum = targetRangeMax - finalNum;
+            }
+            // console.log('magic num: ' + finalNum);
+            // clean it up and add the units
+            finalNum = (Math.floor(finalNum * 10) / 10).toString() + targetUnits;
+            // console.log('curr: ' + sourceCurrValue + ', finalnum: ' + finalNum)
+            // update the chosen element(s) css properties
+            for (let i = 0; i < targetParams.length; i++) {
+                document.getElementById(targetId).style[targetParams[i]] = finalNum;
+            }
+            // console.log('final num: '+ finalNum)
+            // this.target.style[this.targetParams] = finalNum;
+        } else {
+            for (let i = 0; i < targetParams.length; i++) {
+                document.getElementById(targetId).style[targetParams[i]] = targetElse.toString() + targetUnits;
+            }
+        }
     }
 }
 
