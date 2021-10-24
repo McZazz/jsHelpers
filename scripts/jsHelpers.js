@@ -1,9 +1,5 @@
 // created by McZazz, found at https://github.com/McZazz/cssRangeMapper
-/*
-Author:   Kevin Price
-Date:     October 23 2021
-Filename: jsHelpers.js
-*/
+
 /*
 * @targetRangeMax: number, maximum of target range of our css target property
 * @targetRangeMin: number, minimum of target range of our css target property
