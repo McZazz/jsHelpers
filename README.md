@@ -1,5 +1,5 @@
 # jsHelpers
-A place for archiving whatever JavaScript functions and classes I come up with for web dev related issues.
+A place for archiving any JavaScript functions and classes that I come up with for web development related issues.
 
 Currently containing:
 
