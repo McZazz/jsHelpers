@@ -165,7 +165,7 @@ class RangeMapper {
 }
 
 /*
-* regex-like funciton
+* regex-like function
 * returns true if exact, more or less than matches of number
 * of occurances of stringTest are found in stringOrig
 *
@@ -253,7 +253,6 @@ function matchLastIsAfterFirst(stringOrig='', first='', second='') {
         return false;
     }
 }
-
 
 
 //
