@@ -164,6 +164,96 @@ class RangeMapper {
     }
 }
 
+/*
+* regex-like funciton
+* returns true if exact, more or less than matches of number
+* of occurances of stringTest are found in stringOrig
+*
+* @stringOrig is a string to look inside of
+* @stringTest is a shorter string to try to find in the stringOrig
+* @numTimes is how amny times we want a match to return true
+* @exactness is strings of '===', '<=', '>=', '<', '>'
+*/
+function matchNumTimes(stringOrig='', stringTest='', times=0, exactness='') {
+    let cntr = 0;
+    let stringTestLen = stringTest.length;
+    for (let i = 0; i < stringOrig.length; i++) {
+        if (i+stringTestLen <= stringOrig.length) {
+            if (stringOrig.slice(i, i+stringTestLen) === stringTest) {
+                // console.log('inside',i, i+stringTestLen)
+                // console.log(stringOrig.slice(i, i+stringTestLen).length)
+                cntr++;
+            }
+        }
+    }
+    if (exactness === '===') {
+        if (cntr === times) {
+            return true
+        } else {
+            return false;
+        }
+    }
+    else if (exactness === '<=') {
+        if (cntr <= times) {
+            return true
+        } else {
+            return false;
+        }
+    }
+    else if (exactness === '>=') {
+        if (cntr >= times) {
+            return true
+        } else {
+            return false;
+        }
+    }
+    else if (exactness === '<') {
+        if (cntr < times) {
+            return true
+        } else {
+            return false;
+        }
+    }
+    else if (exactness === '>') {
+        if (cntr > times) {
+            return true
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+/*
+* regex-like function
+* returns true if second and first are both present and
+* if second is after first in stringOrig
+*
+* @stringOrig: string to do tests on
+* @first: string of any number of characters that could be inside stringOrig
+* @second: string of any number of characters that could be inside stringOrig
+*/
+function matchLastIsAfterFirst(stringOrig='', first='', second='') {
+    let firsti = -1;
+    let secondi = -1;
+
+    for (let i = 0; i < stringOrig.length; i++) {
+        if (stringOrig[i] === first) {
+            firsti = i;
+        }
+        if (stringOrig[i] === second) {
+            secondi = i;
+        }
+    }
+
+    if (secondi > firsti && firsti !== -1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 
 //
