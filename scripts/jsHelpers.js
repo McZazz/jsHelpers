@@ -255,4 +255,60 @@ function matchLastIsAfterFirst(stringOrig='', first='', second='') {
 }
 
 
-//
+/**
+ * Create element with common attributes set via {tag:'div', innerText:'Some text'} param format.
+ * First child node can be appended only
+ *
+ * @param tag, String: html tag
+ * @param innerText, String: text
+ * @param src, String: src file to point to
+ * @param alt, String: alt text to display
+ * @param classList, String: classlist
+ * @param child, Node: first child node
+ * @returns Node: HTML Node
+ */
+const createEle = ({
+                       tag=null,
+                       innerText=null,
+                       src=null,
+                       alt=null,
+                       classList=null,
+                       child=null
+                    }={}) => {
+
+    let result = document.createElement(tag);
+
+    if (innerText) {
+        result.innerText = innerText;
+    }
+
+    if (src) {
+        result.src = src;
+    }
+
+    if (alt) {
+        result.alt = alt;
+    }
+
+    if (classList) {
+        result.classList = classList;
+    }
+
+    if (child) {
+        result.appendChild(child);
+    }
+
+    return result;
+}
+
+/**
+ * Append any number of child nodes in an array
+ *
+ * @param parent parent node to append to
+ * @param children array of child nodes
+ */
+const appendCh = (parent, children) => {
+    for (let i = 0; i < children.length; i++) {
+        parent.appendChild(children[i]);
+    }
+}
